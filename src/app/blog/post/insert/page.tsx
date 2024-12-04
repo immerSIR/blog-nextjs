@@ -322,7 +322,9 @@ Indian cuisine is a celebration of flavor, culture, and history. Its rich divers
         e.preventDefault();
         const uuid = uuidv4();
         fetch(
-            `/api/posts?id=${uuid}&title=${formData.title}&author=${user?.name}&content=${content}&date=${formData.date}`,
+            `/api/posts?id=${uuid}&title=${formData.title}&author=${
+                user?.name
+            }&content=${content || formData.content}&date=${formData.date}`,
             {
                 method: "POST",
                 headers: {
@@ -411,7 +413,7 @@ Indian cuisine is a celebration of flavor, culture, and history. Its rich divers
                         id="content"
                         name="content"
                         rows={4}
-                        value={content}
+                        value={content || formData?.content}
                         onChange={handleChange}
                         className="w-full border-2 border-purple-100 p-2 rounded-md focus:border-purple-200 focus:outline-none"
                     ></textarea>
