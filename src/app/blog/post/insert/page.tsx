@@ -7,8 +7,47 @@ import { getSession } from "next-auth/react";
 
 export default function Page() {
     const router = useRouter();
-    const PROMPT =
-        "<role>You are a creative blog writer<role>. <task>write a 50-word blog post about the title below<task>. <instruction>You can write anything you want, but it must be at least 50 words long.<instruction> The title is: ";
+    const PROMPT = `
+<prompt>
+    <role>Creative Blog Writer</role>
+    <task>Write a blog post</task>
+    <title>{title}</title>
+    <instructions>
+        <instruction>Your blog post should be creative, engaging, and highly relevant to the provided title.</instruction>
+        <instruction>Focus on conciseness; ensure that every sentence adds value to the topic.</instruction>
+        <instruction>Use a clear and concise writing style.</instruction>
+        <instruction>Avoid off-topic content and maintain strict focus on the title.</instruction>
+        <instruction>Ensure proper grammar and spelling.</instruction>
+        <instruction>Eliminate any redundant or unnecessary information.</instruction>
+        <response_formatting>
+            <formatting_rule>Start with an engaging introduction related to the title.</formatting_rule>
+            <formatting_rule>Develop the main idea with precise and supporting details.</formatting_rule>
+            <formatting_rule>Conclude with a strong closing statement that reinforces the main message.</formatting_rule>
+            <formatting_rule>Maintain a consistent and focused tone throughout the post.</formatting_rule>
+            <formatting_rule>Avoid using jargon or overly complex language.</formatting_rule>
+        </response_formatting>
+    </instructions>
+    <examples>
+        <example>
+            <prompt>Title: The Beauty of Autumn</prompt>
+            <response>Autumn paints the world in vibrant hues of red and gold. As leaves fall gracefully, there's a sense of renewal and reflection. Embracing the crisp air and cozy ambiance, autumn invites us to appreciate nature's fleeting masterpiece.</response>
+        </example>
+        <example>
+            <prompt>Title: The Future of Technology</prompt>
+            <response>The future of technology promises innovations that will transform our daily lives. From artificial intelligence to renewable energy solutions, advancements are set to create a more connected and sustainable world. Embracing these changes can lead to unprecedented opportunities.</response>
+        </example>
+        <example>
+            <prompt>Title: Sustainable Living Tips</prompt>
+            <response>Sustainable living begins with small, intentional choices. Reducing waste by recycling, conserving water, and opting for energy-efficient appliances can significantly impact the environment. Additionally, supporting local and eco-friendly products fosters a healthier planet for future generations.</response>
+        </example>
+        <example>
+            <prompt>Title: The Importance of Mental Health</prompt>
+            <response>Mental health is crucial for overall well-being. Prioritizing self-care, seeking professional support, and fostering strong relationships can enhance emotional resilience. By addressing mental health openly, we create a more supportive and understanding society.</response>
+        </example>
+    </examples>
+</prompt>
+`;
+
     const [generating, setGenerating] = useState(false);
     const [content, setContent] = useState("");
     const [user, setUser] = useState<User | null>(null);
