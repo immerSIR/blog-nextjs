@@ -19,7 +19,11 @@ export default function Page() {
         date: new Date().toISOString().slice(0, 10),
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (
+        e:
+            | React.ChangeEvent<HTMLInputElement>
+            | React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
@@ -27,7 +31,7 @@ export default function Page() {
         }));
     };
 
-    const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const uuid = uuidv4();
         fetch(
@@ -119,7 +123,7 @@ export default function Page() {
                     <textarea
                         id="content"
                         name="content"
-                        rows="4"
+                        rows={4}
                         value={content}
                         onChange={handleChange}
                         className="w-full border-2 border-purple-100 p-2 rounded-md focus:border-purple-200 focus:outline-none"
